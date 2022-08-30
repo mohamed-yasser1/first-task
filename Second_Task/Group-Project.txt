@@ -1,0 +1,133 @@
+create database groupProject		
+   CREATE TABLE mygroup( 
+       id bigint(20) AUTO_INCREMENT, 
+       createdby bigint(20),
+       updateby bigint(20), 
+       title varchar(20), 
+       metatitle varchar(100), 
+      slog varchar(100), 
+      sammary tinytext, 
+      statass SMALLINT(6), 
+      createAt datetime, 
+      updateAt datetime, 
+      profiletext text, 
+      context text, 
+      PRIMARY key(id) 
+   );
+     
+      CREATE TABLE groupMember( 
+       id bigint(20) AUTO_INCREMENT, 
+       groupid  bigint(20),
+       userid  bigint(20),
+       type  SMALLINT(6),
+      statass SMALLINT(6), 
+      createAt datetime, 
+      updateAt datetime, 
+      notes text, 
+      PRIMARY key(id) ,
+      FOREIGN key (groupid) REFERENCES mygroup(id),
+      FOREIGN key (userid) REFERENCES users(id)
+   );
+CREATE TABLE groupFollower( 
+       id bigint(20) AUTO_INCREMENT, 
+       groupid  bigint(20),
+       userid  bigint(20),
+       type  text,
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (groupid) REFERENCES mygroup(id),
+      FOREIGN key (userid) REFERENCES users(id)
+);
+CREATE TABLE groupMeta( 
+       id bigint(20) AUTO_INCREMENT, 
+       groupid  bigint(20),
+       keyy  bigint(50),
+       context text,
+      PRIMARY key(id) ,
+      FOREIGN key (groupid) REFERENCES mygroup(id)
+);
+CREATE TABLE groupMessage( 
+       id bigint(20) AUTO_INCREMENT, 
+       groupid  bigint(20),
+       userid  bigint(20),
+       message  text,
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (groupid) REFERENCES mygroup(id),
+      FOREIGN key (userid) REFERENCES users(id)
+);
+CREATE TABLE groupPost( 
+       id bigint(20) AUTO_INCREMENT, 
+       groupid  bigint(20),
+       userid  bigint(20),
+       message  text,
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (groupid) REFERENCES mygroup(id),
+      FOREIGN key (userid) REFERENCES users(id)
+);
+CREATE TABLE users( 
+       id bigint(20) AUTO_INCREMENT, 
+       firstname varchar(20),
+       middlelname varchar(20),
+       lastname varchar(20),
+       userName varchar(20),
+       mobile varchar(20),
+       email varchar(20),
+       passwordhash varchar(20),
+       registerid datetime,
+       lastlogin datetime,
+       intro tinytext,
+       profilee text, 
+      PRIMARY key(id) 
+   );
+
+CREATE TABLE userFollower( 
+       id bigint(20) AUTO_INCREMENT, 
+       sourceid  bigint(20),
+       targetid  bigint(20),
+       type  SMALLINT(6),
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (sourceid) REFERENCES users(id),
+      FOREIGN key (targetid) REFERENCES users(id)
+);
+CREATE TABLE userMessage( 
+       id bigint(20) AUTO_INCREMENT, 
+       sourceid  bigint(20),
+       targetid  bigint(20),
+       message  tinytext,
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (sourceid) REFERENCES users(id),
+      FOREIGN key (targetid) REFERENCES users(id)
+);
+CREATE TABLE userPost( 
+       id bigint(20) AUTO_INCREMENT, 
+       userid  bigint(20),
+       senderid  bigint(20),
+       message  SMALLINT(6),
+      createAt datetime, 
+      updateAt datetime, 
+      PRIMARY key(id) ,
+      FOREIGN key (userid) REFERENCES users(id),
+      FOREIGN key (senderid) REFERENCES users(id)
+);
+CREATE TABLE userFriend( 
+      id bigint(20) AUTO_INCREMENT, 
+       sourceid  bigint(20),
+       targetid  bigint(20),
+       type  SMALLINT(6),
+       statas SMALLINT(6), 
+      createAt datetime, 
+      updateAt datetime,
+      note text,
+      PRIMARY key(id) ,
+      FOREIGN key (sourceid) REFERENCES users(id),
+      FOREIGN key (targetid) REFERENCES users(id)
+);
